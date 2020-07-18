@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+<<<<<<< HEAD
 from unittest.case import TestCase
 from atores import Ator, DESTRUIDO, ATIVO, Obstaculo, Porco, PassaroAmarelo, PassaroVermelho
 
@@ -57,6 +58,57 @@ class AtorTestes(AtorBaseTest):
                          'Status para tempo 4 de jogo deveria mostrar status destruido, já que é maior que o tempo de colisão 3.2')
 
     def teste_colisao_entre_atores_ativos(self):
+=======
+from os import path
+import sys
+
+project_dir = path.dirname(__file__)
+project_dir = path.join('..')
+sys.path.append(project_dir)
+
+import unittest
+from unittest.case import TestCase
+from atores import Ator, DESTRUIDO, ATIVO, Obstaculo, Porco, PassaroAmarelo, PassaroVermelho
+
+
+class AtorTestes(TestCase):
+    def teste_valores_padrao(self):
+        'Testa valores iniciais padrão de um Ator'
+        ator = Ator()
+        self.assertEqual(0, ator.x)
+        self.assertEqual(0, ator.y)
+        self.assertEqual(ATIVO, ator.status)
+        self.assertEqual('A', ator.caracter())
+
+    def teste_valores_passados_por_parametro(self):
+        'Testa se valores passados no inicializador são armazenados no objeto'
+        ator = Ator(1, 2)
+        self.assertEqual(1, ator.x)
+        self.assertEqual(2, ator.y)
+        self.assertEqual(ATIVO, ator.status)
+        self.assertEqual('A', ator.caracter())
+
+    def teste_ator_posicao(self):
+        'Teste que verifica que o ator comum não deve se mover independente do tempo do jogo'
+        ator = Ator()
+        x, y = ator.calcular_posicao(0)
+        self.assertEqual(0, x)
+        self.assertEqual(0, y)
+
+        ator = Ator(0.3, 0.5)
+        x, y = ator.calcular_posicao(10)
+        self.assertEqual(0.3, x)
+        self.assertEqual(0.5, y)
+
+
+    def teste_colisao_entre_atores_ativos(self):
+        """
+        Teste de colisão entre dois atores
+        Inicialmente atores possuem status ATIVO. Ao se chocarem, ele muda para DESTRUIDO
+        A função assert_colisao_atores_ativos testa justamente se dois atore ativos se chocam quando estão em posições
+        vizinhas.
+        """
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
         ator = Ator(2, 2)  # Ator recém criado deve ter status ativo
         ator2 = Ator(2, 2)
         self.assert_colisao_atores_ativos(ator, ator2)
@@ -73,7 +125,12 @@ class AtorTestes(AtorBaseTest):
         # Com intervalo 2, diferente do padrão 1, essa colisão deveria acontecer
         self.assert_colisao_atores_ativos(Ator(2, 2), Ator(2, 4), 2)
 
+<<<<<<< HEAD
     def teste_nao_colisao_entre_atores_ativos(self):
+=======
+    def teste_nao_colisao_entre_atores_distantes(self):
+        'Teste de que não há colisão entre atores distantes'
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
         self.assert_nao_colisao(Ator(2, 2), Ator(2, 4))
         self.assert_nao_colisao(Ator(2, 2), Ator(3, 4))
         self.assert_nao_colisao(Ator(2, 2), Ator(4, 2))
@@ -84,8 +141,14 @@ class AtorTestes(AtorBaseTest):
         self.assert_nao_colisao(Ator(2, 2), Ator(0, 4))
 
     def teste_colisao_somente_um_ator_destruido(self):
+<<<<<<< HEAD
         ator = Ator(2, 2)
         ator.colidir(ator, 0)  # colidingo ator com ele mesmo para alterar seu status para destruido
+=======
+        'Teste de que um ator destruído não pode colidir com nenhum outro, mesmo que estejam próximos'
+        ator = Ator(2, 2)
+        ator.colidir(ator, 0)  # colidindo ator com ele mesmo para alterar seu status para destruido
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
         ator2 = Ator(2, 2)
         self.assert_nao_colisao(ator, ator2)
         self.assert_nao_colisao(Ator(2, 3), ator)
@@ -107,6 +170,7 @@ class AtorTestes(AtorBaseTest):
         self.assert_nao_colisao(Ator(1, 3), ator)
 
     def test_caracter(self):
+<<<<<<< HEAD
         ator = Ator()
         self.assert_ator_caracteres(ator, 'A', ' ')
 
@@ -161,10 +225,113 @@ class PassaroVermelhoTests(PassaroBaseTests):
     def teste_status(self):
         passaro_amarelo = PassaroVermelho(1, 1)
         self.assert_ator_caracteres(passaro_amarelo, 'V', 'v')
+=======
+        'Teste de caracter para status ATIVO e DESTRUIDO'
+        ator = Ator()
+        self.assertEqual('A', ator.caracter())
+        outro_ator_na_mesma_posicao = Ator()
+        ator.colidir(outro_ator_na_mesma_posicao)
+        self.assertEqual(' ', ator.caracter())
+
+
+    def assert_colisao_atores_ativos(self, ator, ator2, intervalo=1):
+        """
+        Se certifica que há colisão entre atores ativos
+        Atenção: Esse não é método de teste porque nao se inicia com prefixo "text".
+        Ele serve apenas para encapsular toda lógica de teste de colisão entre dois atores ativos
+        """
+        # Conferindo status dos dois atores antes da colisão
+        self.assertEqual(ator.status, ATIVO, 'Status deveria ser ativo antes da colisão')
+        self.assertEqual(ator2.status, ATIVO, 'Status deveria ser ativo antes da colisão')
+        ator.colidir(ator2, intervalo)
+        # Conferindo status dos dois atores depois da colisão
+        self.assertEqual(ator2.status, DESTRUIDO, 'Status deveria ser destruido depois da colisão')
+        self.assertEqual(ator.status, DESTRUIDO, 'Status deveria ser destruido depois da colisão')
+
+    def assert_nao_colisao(self, ator, ator2):
+        """
+        Se certifica que não colisão entre dois atores
+        Atenção: Esse não é método de teste porque nao se inicia com prefixo "text".
+        Ele apenas encapsula a lógica de não colisão entre dois atores.
+        So seja, eles deve manter seus respectivos status mesmo depois da chamada do metodo colidir
+        """
+        # Armazenando status antes da colisão
+        status_inicial_ator = ator.status
+        status_inicial_ator_2 = ator2.status
+
+        ator.colidir(ator2)
+
+        # Conferindo se status ficaram inalterados
+        self.assertEqual(status_inicial_ator, ator.status, 'Status de ator não deveria mudar')
+        self.assertEqual(status_inicial_ator_2, ator2.status, 'Status de ator2 não deveria mudar')
+
+
+class ObstaculoTestes(TestCase):
+    """
+    Esperado '0' como caracter de obstáculo ativo e ' ' como caracter de obstáculo destruído
+    """
+    def teste_status(self):
+        obstaculo = Obstaculo()
+        self.assertEqual('O', obstaculo.caracter())
+        outro_ator_na_mesma_posicao = Ator()
+        obstaculo.colidir(outro_ator_na_mesma_posicao)
+        self.assertEqual(' ', obstaculo.caracter())
+
+
+class PorcoTestes(TestCase):
+    """
+    Esperado '@' como caracter de porco ativo e '+' como caracter de porco destruido
+    """
+    def teste_status(self):
+        porco = Porco()
+        self.assertEqual('@', porco.caracter())
+        outro_ator_na_mesma_posicao = Ator()
+        porco.colidir(outro_ator_na_mesma_posicao)
+        self.assertEqual('+', porco.caracter())
+
+
+class PassaroBaseTests(TestCase):
+    """
+    Classe base para teste de passaros.
+    Essa classe não contèm nenhum teste, serve apenas para encapsular a lógica de asserção de posição de passaros
+    vermelhos e também dos amarelos.
+
+    """
+
+    def assert_passaro_posicao(self, x_esperado, y_esperado, status_esperado, passaro, tempo):
+        """
+        Método que se testa posição do pássaro.
+        Atenção: Esse não é um método de teste porque não se inicia com prefixo "test".
+        :param x_esperado: posição x esperada do passaro
+        :param y_esperado: posição y esperada do passaro
+        :param status_esperado: status esperado do passaro
+        :param passaro: passaro alvo do teste
+        :param tempo: tempo do jogo
+        """
+        x_calculado, y_calculado = passaro.calcular_posicao(tempo)
+        self.assertEqual(x_esperado, round(x_calculado), 'valor real de x = %s' % x_calculado)
+        self.assertEqual(y_esperado, round(y_calculado), 'valor real de y = %s' % y_calculado)
+        self.assertEqual(status_esperado, passaro.status, '(x = %s, y = %s)' % (x_calculado, y_calculado))
+
+
+class PassaroVermelhoTests(PassaroBaseTests):
+    """
+    Classe de teste e Passaro Vermelho
+    """
+
+    def teste_status(self):
+        passaro_vermelho = PassaroVermelho(1, 1)
+        self.assertEqual('V', passaro_vermelho.caracter())
+        outro_ator_na_mesma_posicao = Ator()
+        passaro_vermelho.colidir(outro_ator_na_mesma_posicao)
+        self.assertEqual('v', passaro_vermelho.caracter())
+
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
 
     def teste_velocidade_escalar(self):
         self.assertEqual(20, PassaroVermelho.velocidade_escalar)
 
+<<<<<<< HEAD
     def teste_resetar(self):
         passaro = PassaroVermelho()
         self.assertIsNone(passaro._tempo_de_colisao)
@@ -179,6 +346,15 @@ class PassaroVermelhoTests(PassaroBaseTests):
         self.assertIsNone(passaro._angulo_de_lancamento)
 
     def teste_foi_lancado(self):
+=======
+
+    def teste_foi_lancado(self):
+        """
+        Teste de lançamento. Enquanto o método lançar do passaro não for chamado, o méotodo foi_lancado deve retornar
+        Falso
+        :return:
+        """
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
         passaro_vermelho = PassaroVermelho(1, 1)
         self.assertFalse(passaro_vermelho.foi_lancado(),
                          'Se o método lançar ainda não foi executado, deve retornar falso')
@@ -186,6 +362,7 @@ class PassaroVermelhoTests(PassaroBaseTests):
         self.assertTrue(passaro_vermelho.foi_lancado(),
                         'Se o método lançar foi executado, deve retornar verdadeiro')
 
+<<<<<<< HEAD
     def teste_posicao_antes_do_lancamento(self):
         'Método que testa que o pássaro fica parado antes do tempo de lançamento'
         passaro_vermelho = PassaroVermelho(1, 1)
@@ -229,10 +406,46 @@ class PassaroAmareloTests(PassaroBaseTests):
     def teste_status(self):
         passaro_amarelo = PassaroAmarelo(1, 1)
         self.assert_ator_caracteres(passaro_amarelo, 'A', 'a')
+=======
+    def teste_colisao_com_chao(self):
+        """
+        Testando que o passáro colide quando sua posição y é menor ou igual a 0
+        :return:
+        """
+        passaro = PassaroVermelho(0, 0)
+        passaro.colidir_com_chao()
+        self.assertEqual(DESTRUIDO, passaro.status, 'Deve colidir com chão sempre que y<=0')
+        passaro = PassaroVermelho(1, 0)
+        passaro.colidir_com_chao()
+        self.assertEqual(DESTRUIDO, passaro.status, 'Deve colidir com chão sempre que y<=0')
+        passaro = PassaroVermelho(2, 0)
+        passaro.colidir_com_chao()
+        self.assertEqual(DESTRUIDO, passaro.status, 'Deve colidir com chão sempre que y<=0')
+        passaro = PassaroVermelho(2, -0.1)
+        passaro.colidir_com_chao()
+        self.assertEqual(DESTRUIDO, passaro.status, 'Deve colidir com chão sempre que y<=0')
+        passaro = PassaroVermelho(2, -5)
+        passaro.colidir_com_chao()
+        self.assertEqual(DESTRUIDO, passaro.status, 'Deve colidir com chão sempre que y<=0')
+
+
+class PassaroAmareloTests(PassaroBaseTests):
+    """
+    Classe de Tests para passaros amarelos
+    """
+
+    def teste_status(self):
+        passaro_amarelo = PassaroAmarelo(1, 1)
+        self.assertEqual('A', passaro_amarelo.caracter())
+        outro_ator_na_mesma_posicao = Ator()
+        passaro_amarelo.colidir(outro_ator_na_mesma_posicao)
+        self.assertEqual('a', passaro_amarelo.caracter())
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
 
     def teste_velocidade_escalar(self):
         self.assertEqual(30, PassaroAmarelo.velocidade_escalar)
 
+<<<<<<< HEAD
     def teste_posicao_antes_do_lancamento(self):
         passaro_amarelo = PassaroAmarelo(1, 1)
         passaro_amarelo.lancar(90, 2)  # passaro lancado a 90 graus no tempo 2 segundos
@@ -318,6 +531,61 @@ class PassaroAmareloTests(PassaroBaseTests):
 
         # colisão
         self.assert_passaro_posicao(1, 0, DESTRUIDO, passaro_amarelo, 8.02)
+=======
+    def teste_lacamento_vertical(self):
+        """
+        Tests de lançamento vertical. Nele, o passaro só se move verticalmente e sua posição y se matém contanstante
+        :return:
+        """
+        passaro_amarelo = PassaroAmarelo(1, 1)
+        passaro_amarelo.lancar(90, 2)  # passaro lancado a 90 graus no tempo 2 segundos
+
+
+
+        # subindo
+
+        self.assert_posicao_vertical(1, 2.0, passaro_amarelo)
+        self.assert_posicao_vertical(1, 2.01, passaro_amarelo)
+        self.assert_posicao_vertical(2, 2.02, passaro_amarelo)
+        self.assert_posicao_vertical(2, 2.03, passaro_amarelo)
+        self.assert_posicao_vertical(2, 2.04, passaro_amarelo)
+        self.assert_posicao_vertical(2, 2.05, passaro_amarelo)
+
+        # descendo
+
+        self.assert_posicao_vertical(46, 5.26, passaro_amarelo)
+        self.assert_posicao_vertical(46, 5.27, passaro_amarelo)
+        self.assert_posicao_vertical(46, 5.279999999999999, passaro_amarelo)
+        self.assert_posicao_vertical(46, 5.29, passaro_amarelo)
+        self.assert_posicao_vertical(46, 5.3, passaro_amarelo)
+        self.assert_posicao_vertical(46, 5.3100000000000005, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.32, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.33, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.34, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.35, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.359999999999999, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.37, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.38, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.390000000000001, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.4, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.41, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.42, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.43, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.4399999999999995, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.45, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.46, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.470000000000001, passaro_amarelo)
+        self.assert_posicao_vertical(45, 5.48, passaro_amarelo)
+
+        # preparando para impacto no chão
+        self.assert_posicao_vertical(1, 8.0, passaro_amarelo)
+        self.assert_posicao_vertical(1, 8.01, passaro_amarelo)
+
+        # colisão
+        self.assert_posicao_vertical(0, 8.04, passaro_amarelo)
+        passaro_amarelo.colidir_com_chao()
+        self.assertEqual(DESTRUIDO, passaro_amarelo.status)
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
 
     def test_lancamento_45_graus(self):
         passaro_amarelo = PassaroAmarelo(1, 1)
@@ -749,11 +1017,32 @@ class PassaroAmareloTests(PassaroBaseTests):
         self.assert_passaro_posicao(91, 1, ATIVO, passaro_amarelo, 6.24)
         self.assert_passaro_posicao(91, 1, ATIVO, passaro_amarelo, 6.25)
         self.assert_passaro_posicao(91, 1, ATIVO, passaro_amarelo, 6.26)
+<<<<<<< HEAD
         self.assert_passaro_posicao(92, 0, DESTRUIDO, passaro_amarelo, 6.27)
 
+=======
+        self.assert_passaro_posicao(92, 0, ATIVO, passaro_amarelo, 6.29)
+        passaro_amarelo.colidir_com_chao()
+        self.assertEqual(DESTRUIDO, passaro_amarelo.status)
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
         # Código de geração de testes
 
         # for delta_t in range(0, 550):
         # t = 2 + (delta_t / 100)
         # x, y = passaro_amarelo.calcular_posicao(t)
         # print('        self.assert_passaro_posicao(%s, %s, ATIVO, passaro_amarelo, %s)' % (x, y, t))
+<<<<<<< HEAD
+=======
+
+    def assert_posicao_vertical(self, y, tempo, passaro):
+        """
+         Método auxiliar que mantém x fixo com valor 1, status Ativo, variando apenas o tempo e a posição y
+         Atenção, esse não é um teste porque não começa com prefixo "test"
+         """
+        self.assert_passaro_posicao(1, y, ATIVO, passaro, tempo)
+
+
+if __name__=='__main__':
+    teste= AtorTestes()
+    teste.teste_colisao_entre_atores_ativos()
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar

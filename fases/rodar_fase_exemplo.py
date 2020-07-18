@@ -11,7 +11,11 @@ from fase import Fase
 from placa_grafica_tkinter import rodar_fase
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     fase = Fase(intervalo_de_colisao=10)
+=======
+    fase = Fase(intervalo_de_colisao=32)
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
 
 
     # Adicionar Pássaros Vermelhos

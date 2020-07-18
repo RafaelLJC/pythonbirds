@@ -52,7 +52,11 @@ def _animar(delta_t, fase, passo, tempo, msg):
 
 
 def _jogar(delta_t, fase, passo, tempo, msg):
+<<<<<<< HEAD
     while not fase.acabou(tempo):
+=======
+    while not fase.acabou():
+>>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
         tempo = desenhar_e_esperar(delta_t, fase, passo, tempo, msg)
         entrada = ouvir_teclado()
         if entrada:
