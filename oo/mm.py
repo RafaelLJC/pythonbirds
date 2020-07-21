@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jul 18 13:56:53 2020
+Created on Tue Jul 21 17:00:54 2020
 
 @author: rafae
 """
+
 
 class Pessoa:
     olhos = 2
@@ -37,7 +38,7 @@ if __name__ == '__main__':
         Rafael.sobrenome = 'Junqueira'
     del Rafael.filhos
     Rafael.olhos = 1
-    Pessoa.olhos = 1.5j
+    Pessoa.olhos = 5j
     del Rafael.olhos
     print(Rafael.__dict__)
     print(Luiza.__dict__)
@@ -49,5 +50,4 @@ if __name__ == '__main__':
     print(type(Pessoa.olhos))
     print(id(Pessoa.olhos), id(Rafael.olhos))
     print(Pessoa.metodo_static(), Rafael.metodo_static())
-    print(Pessoa.nome_e_atributos_de_classe(), Clara.nome_e_atributos_de_classe())
-    
+    print(Pessoa.nome_e_atributos_de_classe())
