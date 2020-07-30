@@ -14,11 +14,6 @@ class TestesDoMotor(TestCase):
         self.assertTupleEqual((10, 0), placa_grafica.normalizar_coordenadas(10, placa_grafica.ALTURA - 1))
 
     def teste_desenhar_frame_vazio(self):
-<<<<<<< HEAD
-        self.maxDiff = None
-
-=======
->>>>>>> 261ea9f... Criado classe Pessoa e método cumprimentar
         class PontoCartesiano():
             def __init__(self, x, y, caracter):
                 self.caracter = caracter
