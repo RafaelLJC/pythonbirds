@@ -96,6 +96,24 @@ O       L
          'Oeste'
         
 """
+class Carro:
+    def __init__(self, direcao, motor):
+        self.direcao = direcao
+        self.motor = motor
+    def calcular_velocidade(self):
+        return self.motor.velocidade
+    def acelerar(self):
+        self.motor.acelerar
+    def frear(self):
+        self.motor.frear()
+    def calcular_direcao(self):
+        return self.direcao.valor
+    def girar_a_direita(self):
+        self.direcao.girar_a_direita()
+    def girar_a_esquerda(self):
+        self.direcao.girar_a_esquerda()
+    
+
 class Motor:
     def __init__(self):
         self.velocidade = 0
@@ -108,19 +126,21 @@ class Motor:
         
 motor = Motor()
 motor.acelerar()
-motor.velocidade
+
 motor.acelerar()
-motor.velocidade
+
 motor.frear()
-motor.velocidade
+
 motor.frear()
-motor.velocidade
+
 motor.frear()
-motor.velocidade
+
 motor.acelerar()
-motor.velocidade
+
 motor.frear()
-motor.velocidade
+motor.acelerar()
+motor.frear()
+
 
 
 NORTE = 'Norte'
@@ -144,8 +164,14 @@ direcao = Direcao()
 
 direcao.girar_a_direita()
 direcao.girar_a_esquerda()
+direcao.girar_a_esquerda()
+
+carro = Carro(direcao, motor)
 
 
-
-print(direcao.valor)
-print(motor.velocidade)
+#print(direcao.valor)
+#print(motor.velocidade)
+print(carro.calcular_direcao())
+print(carro.calcular_velocidade())
+      
+      

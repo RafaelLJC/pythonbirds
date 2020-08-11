@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['placa_grafica_tkinter.py', 'oo\\pessoa.py', 'oo\\carro.py']
+recent_files = ['fase.py', 'oo\\pessoa.py', 'oo\\carro.py', 'oo\\teste_carro.py', 'atores.py', 'testes\\teste_atores.py', 'testes\\teste_fase.py', 'testes\\teste_integracao.py']
 
